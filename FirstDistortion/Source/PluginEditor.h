@@ -10,6 +10,7 @@
 
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
+#include "StyleSheet.h"
 
 //==============================================================================
 /**
@@ -25,6 +26,9 @@ public:
     void resized() override;
 
 private:
+    CustomLNF myLNF;
+    juce::Slider volumeSlider;
+
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
     FirstDistortionAudioProcessor& audioProcessor;
