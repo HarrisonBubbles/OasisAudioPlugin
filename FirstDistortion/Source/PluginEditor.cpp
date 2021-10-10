@@ -19,6 +19,9 @@ FirstDistortionAudioProcessorEditor::FirstDistortionAudioProcessorEditor (FirstD
     volumeSlider.setRange(0.0f, 10.0f);
     volumeSlider.setValue(5.0f);
     volumeSlider.setTextBoxStyle(juce::Slider::NoTextBox, true, 100, 25);
+    volumeSlider.setColour(juce::Slider::ColourIds::rotarySliderFillColourId, juce::Colours::orange);
+    volumeSlider.setColour(juce::Slider::ColourIds::thumbColourId, juce::Colours::orange);
+    //volumeSlider.setComponentEffect(&ds);
     addAndMakeVisible(volumeSlider);
 
     // Make sure that before the constructor has finished, you've set the
@@ -37,9 +40,10 @@ void FirstDistortionAudioProcessorEditor::paint (juce::Graphics& g)
     // (Our component is opaque, so we must completely fill the background with a solid colour)
     g.fillAll (juce::Colours::darkgrey);
 
-    g.setColour (juce::Colours::orange);
-    g.setFont (25.0f);
-    g.drawFittedText ("Hello World!", getLocalBounds(), juce::Justification::centred, 1);
+    g.setColour (juce::Colours::white);
+    g.setFont (juce::Font("Giraffey", "Black", 50.0f));
+    g.drawFittedText ("HELLO WORLD", getLocalBounds(), juce::Justification::centred, 1);
+
 }
 
 void FirstDistortionAudioProcessorEditor::resized()
