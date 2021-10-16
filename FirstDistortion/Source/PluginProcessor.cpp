@@ -167,6 +167,7 @@ bool FirstDistortionAudioProcessor::hasEditor() const
 juce::AudioProcessorEditor* FirstDistortionAudioProcessor::createEditor()
 {
     return new FirstDistortionAudioProcessorEditor (*this);
+    //return new juce::GenericAudioProcessorEditor(*this);
 }
 
 //==============================================================================
@@ -175,12 +176,33 @@ void FirstDistortionAudioProcessor::getStateInformation (juce::MemoryBlock& dest
     // You should use this method to store your parameters in the memory block.
     // You could do that either as raw data, or use the XML or ValueTree classes
     // as intermediaries to make it easy to save and load complex data.
+
+    //juce::MemoryOutputStream mos(destData, true);
+    //apvts.state.writeToStream(mos);
 }
 
 void FirstDistortionAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
+    //auto tree = juce::ValueTree::readFromData(data, sizeInBytes);
+    //if (tree.isValid()) {
+    //    apvts.replaceState(tree);
+    //}
+
+}
+
+juce::AudioProcessorValueTreeState::ParameterLayout
+FirstDistortionAudioProcessor::createParameterLayout()
+{
+    juce::AudioProcessorValueTreeState::ParameterLayout layout;
+
+    layout.add(std::make_unique<juce::AudioParameterFloat>("Gain", 
+                                                            "Gain", 
+                                                            juce::NormalisableRange<float>(-24.f, 24.f, 0.5f, 1.f),
+                                                            0.0f));
+    
+    return layout;
 }
 
 //==============================================================================
