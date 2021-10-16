@@ -15,7 +15,8 @@
 //==============================================================================
 /**
 */
-class FirstDistortionAudioProcessorEditor  : public juce::AudioProcessorEditor
+class FirstDistortionAudioProcessorEditor  : public juce::AudioProcessorEditor,
+    public juce::Slider::Listener
 {
 public:
     FirstDistortionAudioProcessorEditor (FirstDistortionAudioProcessor&);
@@ -24,10 +25,14 @@ public:
     //==============================================================================
     void paint (juce::Graphics&) override;
     void resized() override;
+    void sliderValueChanged(juce::Slider* slider) override;
 
 private:
-    juce::CustomLNF myLNF;
     juce::Slider volumeSlider;
+    juce::Slider driveSlider;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> gainAttachment;
+
+    juce::CustomLNF myLNF;
     juce::DropShadowEffect ds;
     juce::Font giraffey;
 

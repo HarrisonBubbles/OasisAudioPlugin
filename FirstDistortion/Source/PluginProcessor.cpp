@@ -155,6 +155,10 @@ void FirstDistortionAudioProcessor::processBlock (juce::AudioBuffer<float>& buff
         auto* channelData = buffer.getWritePointer (channel);
 
         // ..do something to the data...
+        for (int sample = 0; sample < buffer.getNumSamples(); ++sample)
+        {
+            channelData[sample] = channelData[sample] * juce::Decibels::decibelsToGain(mGain) ;
+        }
     }
 }
 
@@ -199,7 +203,7 @@ FirstDistortionAudioProcessor::createParameterLayout()
 
     layout.add(std::make_unique<juce::AudioParameterFloat>("Gain", 
                                                             "Gain", 
-                                                            juce::NormalisableRange<float>(-24.f, 24.f, 0.5f, 1.f),
+                                                            juce::NormalisableRange<float>(-60.0f, 5.0f, 0.01f, 1.f),
                                                             0.0f));
     
     return layout;
