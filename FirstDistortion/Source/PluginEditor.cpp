@@ -66,11 +66,18 @@ FirstDistortionAudioProcessorEditor::~FirstDistortionAudioProcessorEditor()
 void FirstDistortionAudioProcessorEditor::paint (juce::Graphics& g)
 {
     // (Our component is opaque, so we must completely fill the background with a solid colour)
-    g.fillAll (juce::Colours::darkgrey);
+    g.fillAll (juce::Colours::black);
 
     g.setColour (juce::Colours::white);
-    g.setFont (juce::Font("Giraffey", "Black", 50.0f));
+    g.setFont (juce::Font("Giraffey", "White", 50.0f));
     g.drawFittedText ("DISTORTION", getLocalBounds(), juce::Justification::centred, 1);
+    
+    g.setFont(juce::Font("Giraffey", "White", 20.0f));
+    g.drawText("VOLUME", 0, getHeight() - 155, 100, 100, juce::Justification::centred, false);
+    g.drawText("DRIVE", getWidth() - 100, getHeight() - 155, 100, 100, juce::Justification::centred, false);
+    g.drawText("RANGE", 0, -30, 100, 100, juce::Justification::centred, false);
+    g.drawText("BLEND", getWidth() - 100, -30, 100, 100, juce::Justification::centred, false);
+
 
 }
 
@@ -78,8 +85,8 @@ void FirstDistortionAudioProcessorEditor::resized()
 {
     volumeSlider.setBounds(0,getHeight() - 100,100,100);
     driveSlider.setBounds(getWidth() - 100, getHeight() - 100, 100, 100);
-    rangeSlider.setBounds(0, 100, 100, 100);
-    blendSlider.setBounds(getWidth() - 100, 100, 100, 100);
+    rangeSlider.setBounds(0, 25, 100, 100);
+    blendSlider.setBounds(getWidth() - 100, 25, 100, 100);
     // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..
 }

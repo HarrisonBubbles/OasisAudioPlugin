@@ -53,7 +53,7 @@ namespace juce
                 true);
 
             g.setColour(fill);
-            g.strokePath(valueArc, PathStrokeType(lineW / 2, PathStrokeType::curved, PathStrokeType::rounded));
+            g.strokePath(valueArc, PathStrokeType(lineW / 2 + 1, PathStrokeType::curved, PathStrokeType::rounded));
         }
 
         // thumb
