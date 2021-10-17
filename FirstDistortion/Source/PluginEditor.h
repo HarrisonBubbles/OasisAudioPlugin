@@ -30,7 +30,12 @@ public:
 private:
     juce::Slider volumeSlider;
     juce::Slider driveSlider;
+    juce::Slider rangeSlider;
+    juce::Slider blendSlider;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> gainAttachment;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> driveAttachment;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> rangeAttachment;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> blendAttachment;
 
     juce::CustomLNF myLNF;
     juce::DropShadowEffect ds;

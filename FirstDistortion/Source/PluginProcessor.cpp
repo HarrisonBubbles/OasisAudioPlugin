@@ -6,8 +6,11 @@
   ==============================================================================
 */
 
+#define _USE_MATH_DEFINES
+
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
+#include <math.h>
 
 //==============================================================================
 FirstDistortionAudioProcessor::FirstDistortionAudioProcessor()
@@ -144,6 +147,11 @@ void FirstDistortionAudioProcessor::processBlock (juce::AudioBuffer<float>& buff
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
 
+    float gain = *apvts.getRawParameterValue("Gain");
+    float drive = *apvts.getRawParameterValue("Drive");
+    float blend = *apvts.getRawParameterValue("Blend");
+    float range = *apvts.getRawParameterValue("Range");
+
     // This is the place where you'd normally do the guts of your plugin's
     // audio processing...
     // Make sure to reset the state if your inner loop is processing
@@ -157,7 +165,11 @@ void FirstDistortionAudioProcessor::processBlock (juce::AudioBuffer<float>& buff
         // ..do something to the data...
         for (int sample = 0; sample < buffer.getNumSamples(); ++sample)
         {
-            channelData[sample] = channelData[sample] * juce::Decibels::decibelsToGain(mGain) ;
+            float cleanSig = channelData[sample];
+
+            //channelData[sample] = channelData[sample] * juce::Decibels::decibelsToGain(gain) ;
+            channelData[sample] *= drive * range;
+            channelData[sample] = (((2.f / M_PI) * atan(channelData[sample]) * blend) + (cleanSig * (1.f-blend))) * gain;
         }
     }
 }
@@ -203,8 +215,20 @@ FirstDistortionAudioProcessor::createParameterLayout()
 
     layout.add(std::make_unique<juce::AudioParameterFloat>("Gain", 
                                                             "Gain", 
-                                                            juce::NormalisableRange<float>(-60.0f, 5.0f, 0.01f, 1.f),
-                                                            0.0f));
+                                                            juce::NormalisableRange<float>(0.0f, 3.0f, 0.0001f, 1.f),
+                                                            1.0f));
+
+    layout.add(std::make_unique<juce::AudioParameterFloat>("Drive", "Drive",
+        juce::NormalisableRange<float>(0.f, 1.f, 0.0001f, 1.f),
+        0.5f));
+
+    layout.add(std::make_unique<juce::AudioParameterFloat>("Range", "Range",
+        juce::NormalisableRange<float>(0.f, 3000.f, 0.0001f, 1.f),
+        1000.0f));
+
+    layout.add(std::make_unique<juce::AudioParameterFloat>("Blend", "Blend",
+        juce::NormalisableRange<float>(0.f, 1.f, 0.0001f, 1.f),
+        0.5f));
     
     return layout;
 }

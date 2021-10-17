@@ -56,7 +56,7 @@ public:
     static juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
     juce::AudioProcessorValueTreeState apvts {*this, nullptr, "Parameters", createParameterLayout()};
 
-    float mGain{ 0.5 };
+    //float mGain{ 0.5 };
 
 private:
     //==============================================================================
