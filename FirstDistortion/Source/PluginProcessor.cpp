@@ -223,7 +223,7 @@ FirstDistortionAudioProcessor::createParameterLayout()
         0.5f));
 
     layout.add(std::make_unique<juce::AudioParameterFloat>("Range", "Range",
-        juce::NormalisableRange<float>(0.f, 3000.f, 0.0001f, 1.f),
+        juce::NormalisableRange<float>(1.f, 3000.f, 0.0001f, 1.f),
         1000.0f));
 
     layout.add(std::make_unique<juce::AudioParameterFloat>("Blend", "Blend",

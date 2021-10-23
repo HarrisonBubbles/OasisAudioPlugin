@@ -27,7 +27,15 @@ public:
     void resized() override;
     void sliderValueChanged(juce::Slider* slider) override;
 
+    static const juce::Font& getGiraffeyFont()
+    {
+        static juce::Font giraffey(juce::Font(juce::Typeface::createSystemTypefaceFor(BinaryData::Giraffey_otf,
+            BinaryData::Giraffey_otfSize)));
+        return giraffey;
+    }
+
 private:
+    juce::Rectangle<float> rect{ 50.f, 50.f, 400.f, 300.f };
     juce::Slider volumeSlider;
     juce::Slider driveSlider;
     juce::Slider rangeSlider;
@@ -39,6 +47,7 @@ private:
 
     juce::CustomLNF myLNF;
     juce::DropShadowEffect ds;
+    juce::DropShadow dsStruct;
     juce::Font giraffey;
 
     // This reference is provided as a quick way for your editor to

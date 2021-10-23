@@ -5,6 +5,10 @@
               cppLanguageStandard="17">
   <MAINGROUP id="VA8X9A" name="FirstDistortion">
     <GROUP id="{004FE1CE-C396-C731-9A54-E376D6AB7DB4}" name="Source">
+      <GROUP id="{CD585AA1-B489-3A05-2AEE-86E0EDCA37D9}" name="Resources">
+        <FILE id="VKmIvQ" name="Giraffey.otf" compile="0" resource="1" file="../../../Documents/Giraffey.otf"/>
+        <FILE id="s2CZTM" name="background.svg" compile="0" resource="1" file="../../../Downloads/background.svg"/>
+      </GROUP>
       <FILE id="Tl7MxR" name="StyleSheet.cpp" compile="1" resource="0" file="Source/StyleSheet.cpp"/>
       <FILE id="kOj57j" name="StyleSheet.h" compile="0" resource="0" file="Source/StyleSheet.h"/>
       <FILE id="mS9OVR" name="PluginProcessor.cpp" compile="1" resource="0"

@@ -8,6 +8,7 @@
 
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
+#include "BinaryData.h"
 
 //==============================================================================
 FirstDistortionAudioProcessorEditor::FirstDistortionAudioProcessorEditor (FirstDistortionAudioProcessor& p)
@@ -54,7 +55,7 @@ FirstDistortionAudioProcessorEditor::FirstDistortionAudioProcessorEditor (FirstD
 
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
-    setSize (400, 300);
+    setSize (500, 400);
 }
 
 FirstDistortionAudioProcessorEditor::~FirstDistortionAudioProcessorEditor()
@@ -66,27 +67,42 @@ FirstDistortionAudioProcessorEditor::~FirstDistortionAudioProcessorEditor()
 void FirstDistortionAudioProcessorEditor::paint (juce::Graphics& g)
 {
     // (Our component is opaque, so we must completely fill the background with a solid colour)
-    g.fillAll (juce::Colours::black);
+    //g.fillAll (juce::Colours::black);
+
+    //const auto myDrawable = juce::Drawable::createFromImageData(BinaryData::background_svg, BinaryData::background_svgSize);
+    //myDrawable->draw(g, 1.0f);
+
+    juce::Colour red = juce::Colour::Colour(253, 29, 29);
+    juce::Colour orange = juce::Colour::Colour(252, 176, 69);
+    juce::ColourGradient gradient = juce::ColourGradient::ColourGradient(red, 0.0f, 0.0f, orange, 0.0f, 300.0f, false);
+
+    g.setGradientFill(gradient);
+    g.fillAll();
+
+    g.setColour(juce::Colours::maroon);
+    //dsStruct.drawForRectangle(g, juce::Rectangle<int>::Rectangle<int>(50, 50, 400, 300));
+    g.fillRoundedRectangle(rect, 10.f);
 
     g.setColour (juce::Colours::white);
-    g.setFont (juce::Font("Giraffey", "White", 50.0f));
+    g.setFont (juce::Font(getGiraffeyFont()));
+    g.setFont(50.0f);
     g.drawFittedText ("DISTORTION", getLocalBounds(), juce::Justification::centred, 1);
     
-    g.setFont(juce::Font("Giraffey", "White", 20.0f));
-    g.drawText("VOLUME", 0, getHeight() - 155, 100, 100, juce::Justification::centred, false);
-    g.drawText("DRIVE", getWidth() - 100, getHeight() - 155, 100, 100, juce::Justification::centred, false);
-    g.drawText("RANGE", 0, -30, 100, 100, juce::Justification::centred, false);
-    g.drawText("BLEND", getWidth() - 100, -30, 100, 100, juce::Justification::centred, false);
+    g.setFont(20.0f);
+    g.drawText("VOLUME", 50, rect.getHeight() - 105, 100, 100, juce::Justification::centred, false);
+    g.drawText("DRIVE", rect.getWidth() - 50, rect.getHeight() - 105, 100, 100, juce::Justification::centred, false);
+    g.drawText("RANGE", 50, 20, 100, 100, juce::Justification::centred, false);
+    g.drawText("BLEND", rect.getWidth() - 50, 20, 100, 100, juce::Justification::centred, false);
 
 
 }
 
 void FirstDistortionAudioProcessorEditor::resized()
 {
-    volumeSlider.setBounds(0,getHeight() - 100,100,100);
-    driveSlider.setBounds(getWidth() - 100, getHeight() - 100, 100, 100);
-    rangeSlider.setBounds(0, 25, 100, 100);
-    blendSlider.setBounds(getWidth() - 100, 25, 100, 100);
+    volumeSlider.setBounds(50,rect.getHeight() - 50,100,100);
+    driveSlider.setBounds(rect.getWidth() - 50, rect.getHeight() - 50, 100, 100);
+    rangeSlider.setBounds(50, 75, 100, 100);
+    blendSlider.setBounds(rect.getWidth() - 50, 75, 100, 100);
     // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..
 }
