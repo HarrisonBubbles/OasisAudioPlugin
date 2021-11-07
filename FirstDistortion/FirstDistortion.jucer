@@ -9,18 +9,8 @@
         <FILE id="YQv2Rb" name="InputMeter.h" compile="0" resource="0" file="Source/InputMeter.h"/>
       </GROUP>
       <GROUP id="{CD585AA1-B489-3A05-2AEE-86E0EDCA37D9}" name="Resources">
-        <FILE id="VKmIvQ" name="Giraffey.otf" compile="0" resource="1" file="../../../Documents/Giraffey.otf"/>
-        <FILE id="br6FvV" name="GaramondMed.ttf" compile="0" resource="1" file="../../../../Downloads/EB_Garamond/static/GaramondMed.ttf"/>
-        <FILE id="y8ZoKj" name="Disengaged.ttf" compile="0" resource="1" file="../../../../Downloads/disengaged-font/Disengaged.ttf"/>
-        <FILE id="HXbIGT" name="StringsTheory.ttf" compile="0" resource="1"
-              file="../../../../Downloads/strings-theory-font/StringsTheory.ttf"/>
         <FILE id="dyzd20" name="Akzidenz-grotesk-roman.ttf" compile="0" resource="1"
               file="../../../../Downloads/New folder (5)/Akzidenz-grotesk-roman.ttf"/>
-        <FILE id="oFSQO1" name="Microgramma.ttf" compile="0" resource="1" file="../../../../Downloads/Microgram DB Regular/Microgramma.ttf"/>
-        <FILE id="waZpxt" name="EuroStyle Normal.ttf" compile="0" resource="1"
-              file="../../../../Downloads/eurostile font/EuroStyle Normal.ttf"/>
-        <FILE id="FTcCMn" name="Roboto-Medium.ttf" compile="0" resource="1"
-              file="../../../../Downloads/Roboto/Roboto-Medium.ttf"/>
       </GROUP>
       <FILE id="Tl7MxR" name="StyleSheet.cpp" compile="1" resource="0" file="Source/StyleSheet.cpp"/>
       <FILE id="kOj57j" name="StyleSheet.h" compile="0" resource="0" file="Source/StyleSheet.h"/>

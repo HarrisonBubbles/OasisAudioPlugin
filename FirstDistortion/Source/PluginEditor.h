@@ -30,47 +30,47 @@ public:
     void resized() override;
     void sliderValueChanged(juce::Slider* slider) override;
 
-    static const juce::Font& getGiraffeyFont()
-    {
-        static juce::Font giraffey(juce::Font(juce::Typeface::createSystemTypefaceFor(BinaryData::Giraffey_otf,
-            BinaryData::Giraffey_otfSize)));
-        return giraffey;
-    }
-    
-    static const juce::Font& getGaramondFont()
-    {
-        static juce::Font garamond(juce::Font(juce::Typeface::createSystemTypefaceFor(BinaryData::GaramondMed_ttf,
-            BinaryData::GaramondMed_ttfSize)));
-        return garamond;
-    }
-    
-    static const juce::Font& getDisengagedFont()
-    {
-        static juce::Font disengaged(juce::Font(juce::Typeface::createSystemTypefaceFor(BinaryData::Disengaged_ttf,
-            BinaryData::Disengaged_ttfSize)));
-        return disengaged;
-    }
-    
-    static const juce::Font& getStringsTheoryFont()
-    {
-        static juce::Font stringsTheory(juce::Font(juce::Typeface::createSystemTypefaceFor(BinaryData::StringsTheory_ttf,
-            BinaryData::StringsTheory_ttfSize)));
-        return stringsTheory;
-    }
-    
-    static const juce::Font& getMicrogrammaFont()
-    {
-        static juce::Font microgramma(juce::Font(juce::Typeface::createSystemTypefaceFor(BinaryData::Microgramma_ttf,
-            BinaryData::Microgramma_ttfSize)));
-        return microgramma;
-    }
-    
-    static const juce::Font& getRobotoFont()
-    {
-        static juce::Font roboto(juce::Font(juce::Typeface::createSystemTypefaceFor(BinaryData::RobotoMedium_ttf,
-            BinaryData::RobotoMedium_ttfSize)));
-        return roboto;
-    }
+//    static const juce::Font& getGiraffeyFont()
+//    {
+//        static juce::Font giraffey(juce::Font(juce::Typeface::createSystemTypefaceFor(BinaryData::Giraffey_otf,
+//            BinaryData::Giraffey_otfSize)));
+//        return giraffey;
+//    }
+//
+//    static const juce::Font& getGaramondFont()
+//    {
+//        static juce::Font garamond(juce::Font(juce::Typeface::createSystemTypefaceFor(BinaryData::GaramondMed_ttf,
+//            BinaryData::GaramondMed_ttfSize)));
+//        return garamond;
+//    }
+//
+//    static const juce::Font& getDisengagedFont()
+//    {
+//        static juce::Font disengaged(juce::Font(juce::Typeface::createSystemTypefaceFor(BinaryData::Disengaged_ttf,
+//            BinaryData::Disengaged_ttfSize)));
+//        return disengaged;
+//    }
+//
+//    static const juce::Font& getStringsTheoryFont()
+//    {
+//        static juce::Font stringsTheory(juce::Font(juce::Typeface::createSystemTypefaceFor(BinaryData::StringsTheory_ttf,
+//            BinaryData::StringsTheory_ttfSize)));
+//        return stringsTheory;
+//    }
+//
+//    static const juce::Font& getMicrogrammaFont()
+//    {
+//        static juce::Font microgramma(juce::Font(juce::Typeface::createSystemTypefaceFor(BinaryData::Microgramma_ttf,
+//            BinaryData::Microgramma_ttfSize)));
+//        return microgramma;
+//    }
+//
+//    static const juce::Font& getRobotoFont()
+//    {
+//        static juce::Font roboto(juce::Font(juce::Typeface::createSystemTypefaceFor(BinaryData::RobotoMedium_ttf,
+//            BinaryData::RobotoMedium_ttfSize)));
+//        return roboto;
+//    }
     
     static const juce::Font& getAGFont()
     {
@@ -79,12 +79,12 @@ public:
         return ag;
     }
     
-    static const juce::Font& getEurostileFont()
-    {
-        static juce::Font eurostile(juce::Font(juce::Typeface::createSystemTypefaceFor(BinaryData::EuroStyle_Normal_ttf,
-            BinaryData::EuroStyle_Normal_ttfSize)));
-        return eurostile;
-    }
+//    static const juce::Font& getEurostileFont()
+//    {
+//        static juce::Font eurostile(juce::Font(juce::Typeface::createSystemTypefaceFor(BinaryData::EuroStyle_Normal_ttf,
+//            BinaryData::EuroStyle_Normal_ttfSize)));
+//        return eurostile;
+//    }
 
 private:
     // input meter
