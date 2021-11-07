@@ -72,16 +72,19 @@ void FirstDistortionAudioProcessorEditor::paint (juce::Graphics& g)
     //const auto myDrawable = juce::Drawable::createFromImageData(BinaryData::background_svg, BinaryData::background_svgSize);
     //myDrawable->draw(g, 1.0f);
 
-    juce::Colour red = juce::Colour::Colour(253, 29, 29);
-    juce::Colour orange = juce::Colour::Colour(252, 176, 69);
-    juce::ColourGradient gradient = juce::ColourGradient::ColourGradient(red, 0.0f, 0.0f, orange, 0.0f, 300.0f, false);
+    juce::Colour red = juce::Colour(253, 29, 29);
+    juce::Colour orange = juce::Colour(252, 176, 69);
+    juce::ColourGradient gradient = juce::ColourGradient(red, 0.0f, 0.0f, orange, 0.0f, 500.0f, false);
 
     g.setGradientFill(gradient);
     g.fillAll();
 
-    g.setColour(juce::Colours::maroon);
+    g.setColour(juce::Colour(237, 74, 79));
     //dsStruct.drawForRectangle(g, juce::Rectangle<int>::Rectangle<int>(50, 50, 400, 300));
     g.fillRoundedRectangle(rect, 10.f);
+
+    g.setColour(juce::Colours::black);
+    g.drawRoundedRectangle(rect, 10.f, 4.f);
 
     g.setColour (juce::Colours::white);
     g.setFont (juce::Font(getGiraffeyFont()));
