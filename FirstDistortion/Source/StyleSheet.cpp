@@ -10,60 +10,71 @@
 
 #include "StyleSheet.h"
 
-namespace juce
+//==============================================================================
+void juce::CustomLNF::drawRotarySlider(Graphics& g,
+    int x, int y, int width, int height, float sliderPos,
+    float rotaryStartAngle, float rotaryEndAngle, Slider& slider)
 {
-    void CustomLNF::drawRotarySlider(Graphics& g, int x, int y, int width, int height,
-        float sliderPos, float rotaryStartAngle, float rotaryEndAngle, Slider& slider) {
-        
-        auto outline = slider.findColour(Slider::rotarySliderOutlineColourId);
-        auto fill = slider.findColour(Slider::rotarySliderFillColourId);
 
-        auto bounds = Rectangle<int>(x, y, width, height).toFloat().reduced(10);
+    File knobImageFile1 = File::getSpecialLocation
+    (File::SpecialLocationType::userDesktopDirectory).getChildFile("knob1.png");
+    static juce::Image
+        img1(ImageCache::getFromFile(knobImageFile1));
 
-        auto radius = jmin(bounds.getWidth(), bounds.getHeight()) / 2.0f;
-        auto toAngle = rotaryStartAngle + sliderPos * (rotaryEndAngle - rotaryStartAngle);
-        auto lineW = jmin(8.0f, radius * 0.5f);
-        auto arcRadius = radius - lineW * 0.5f;
+        const double rotation = (slider.getValue()
+            - slider.getMinimum())
+            / (slider.getMaximum()
+                - slider.getMinimum());
 
-        // dial background path
-        Path backgroundArc;
-        backgroundArc.addCentredArc(bounds.getCentreX(),
-            bounds.getCentreY(),
-            arcRadius,
-            arcRadius,
-            0.0f,
-            rotaryStartAngle,
-            rotaryEndAngle,
-            true);
+        const int frames = img1.getHeight() / img1.getWidth();
+        const int frameId = (int)ceil(rotation * ((double)frames - 1.0));
+        const float radius = jmin(width / 3.0f, height / 3.0f);
+        const float centerX = x + width * 0.5f;
+        const float centerY = y + height * 0.5f;
+        const float rx = centerX - radius - 1.0f;
+        const float ry = centerY - radius;
 
-        g.setColour(outline);
-        g.strokePath(backgroundArc, PathStrokeType(lineW / 2, PathStrokeType::curved, PathStrokeType::rounded));
-
-        if (slider.isEnabled())
-        {
-            // fill path
-            Path valueArc;
-            valueArc.addCentredArc(bounds.getCentreX(),
-                bounds.getCentreY(),
-                arcRadius,
-                arcRadius,
-                0.0f,
-                rotaryStartAngle,
-                toAngle,
-                true);
-
-            g.setColour(fill);
-            g.strokePath(valueArc, PathStrokeType(lineW / 2 + 1, PathStrokeType::curved, PathStrokeType::rounded));
-        }
-
-        // thumb
-        auto thumbWidth = lineW * 2.0f;
-        Point<float> thumbPoint(bounds.getCentreX() + (arcRadius - 10.0f) * std::cos(toAngle - MathConstants<float>::halfPi),
-            bounds.getCentreY() + (arcRadius - 10.0f) * std::sin(toAngle - MathConstants<float>::halfPi));
-
-        g.setColour(slider.findColour(Slider::thumbColourId));
-        //g.fillEllipse(Rectangle<float>(thumbWidth, thumbWidth).withCentre(thumbPoint));
-        g.drawLine(backgroundArc.getBounds().getCentreX(), backgroundArc.getBounds().getCentreY(),
-            thumbPoint.getX(), thumbPoint.getY(), lineW / 2);
-    }
+        g.drawImage(img1,
+            (int)rx,
+            (int)ry,
+            2 * (int)radius,
+            2 * (int)radius,
+            0,
+            frameId*img1.getWidth(),
+            img1.getWidth(),
+            img1.getWidth());
 }
+
+
+//namespace juce
+//{
+//    void CustomLNF::drawRotarySlider(Graphics& g, int x, int y, int width, int height,
+//        float sliderPos, float rotaryStartAngle, float rotaryEndAngle, Slider& slider) {
+//
+//        const float radius = jmin (width / 2, height / 2) - 4.0f;
+//        const float centreX = x + width * 0.5f;
+//        const float centreY = y + height * 0.5f;
+//        const float rx = centreX - radius;
+//        const float ry = centreY - radius;
+//        const float rw = radius * 2.0f;
+//        const float angle = rotaryStartAngle + sliderPos * (rotaryEndAngle - rotaryStartAngle);
+//
+//        // fill
+//        g.setColour (Colours::orange);
+//        g.fillEllipse (rx, ry, rw, rw);
+//
+//        // outline
+//        g.setColour (Colours::red);
+//        g.drawEllipse (rx, ry, rw, rw, 1.0f);
+//
+//        Path p;
+//        const float pointerLength = radius * 0.33f;
+//        const float pointerThickness = 2.0f;
+//        p.addRectangle (-pointerThickness * 0.5f, -radius, pointerThickness, pointerLength);
+//        p.applyTransform (AffineTransform::rotation (angle).translated (centreX, centreY));
+//
+//        // pointer
+//        g.setColour (Colours::yellow);
+//        g.fillPath (p);
+//    }
+//}

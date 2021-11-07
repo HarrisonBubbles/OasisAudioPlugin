@@ -14,9 +14,14 @@
 FirstDistortionAudioProcessorEditor::FirstDistortionAudioProcessorEditor (FirstDistortionAudioProcessor& p)
     : AudioProcessorEditor (&p), audioProcessor (p)
 {
+    addAndMakeVisible(inputMeterL);
+    addAndMakeVisible(inputMeterR);
+    
+    startTimerHz(24);
+    
     juce::LookAndFeel::setDefaultLookAndFeel(&myLNF);
 
-    volumeSlider.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
+    volumeSlider.setSliderStyle(juce::Slider::SliderStyle::Rotary);
     //volumeSlider.setRange(-60.0f, 5.0f, 0.01f);
     //volumeSlider.setValue(0.0f);
     volumeSlider.setTextBoxStyle(juce::Slider::NoTextBox, true, 100, 25);
@@ -25,19 +30,19 @@ FirstDistortionAudioProcessorEditor::FirstDistortionAudioProcessorEditor (FirstD
     volumeSlider.addListener(this);
     //volumeSlider.setComponentEffect(&ds);
 
-    driveSlider.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
+    driveSlider.setSliderStyle(juce::Slider::SliderStyle::Rotary);
     driveSlider.setTextBoxStyle(juce::Slider::NoTextBox, true, 100, 25);
     driveSlider.setColour(juce::Slider::ColourIds::rotarySliderFillColourId, juce::Colours::orange);
     driveSlider.setColour(juce::Slider::ColourIds::thumbColourId, juce::Colours::orange);
     driveSlider.addListener(this);
 
-    rangeSlider.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
+    rangeSlider.setSliderStyle(juce::Slider::SliderStyle::Rotary);
     rangeSlider.setTextBoxStyle(juce::Slider::NoTextBox, true, 100, 25);
     rangeSlider.setColour(juce::Slider::ColourIds::rotarySliderFillColourId, juce::Colours::orange);
     rangeSlider.setColour(juce::Slider::ColourIds::thumbColourId, juce::Colours::orange);
     rangeSlider.addListener(this);
 
-    blendSlider.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
+    blendSlider.setSliderStyle(juce::Slider::SliderStyle::Rotary);
     blendSlider.setTextBoxStyle(juce::Slider::NoTextBox, true, 100, 25);
     blendSlider.setColour(juce::Slider::ColourIds::rotarySliderFillColourId, juce::Colours::orange);
     blendSlider.setColour(juce::Slider::ColourIds::thumbColourId, juce::Colours::orange);
@@ -72,37 +77,57 @@ void FirstDistortionAudioProcessorEditor::paint (juce::Graphics& g)
     //const auto myDrawable = juce::Drawable::createFromImageData(BinaryData::background_svg, BinaryData::background_svgSize);
     //myDrawable->draw(g, 1.0f);
 
-    juce::Colour red = juce::Colour::Colour(253, 29, 29);
-    juce::Colour orange = juce::Colour::Colour(252, 176, 69);
-    juce::ColourGradient gradient = juce::ColourGradient::ColourGradient(red, 0.0f, 0.0f, orange, 0.0f, 300.0f, false);
+    juce::Colour red = juce::Colour(253, 29, 29);
+    juce::Colour burntOrange = juce::Colour(191, 87, 0);
+    juce::Colour UTBlue = juce::Colour(51, 63, 72);
+    juce::Colour pretentious = juce::Colour(12, 50, 78);
+//    juce::ColourGradient gradient = juce::ColourGradient(red, 0.0f, 0.0f, peach, 0.0f, 300.0f, false);
 
-    g.setGradientFill(gradient);
+    //g.setGradientFill(gradient);
+    g.setColour(burntOrange);
     g.fillAll();
-
-    g.setColour(juce::Colours::maroon);
-    //dsStruct.drawForRectangle(g, juce::Rectangle<int>::Rectangle<int>(50, 50, 400, 300));
+    
+    g.setColour(UTBlue);
     g.fillRoundedRectangle(rect, 10.f);
 
-    g.setColour (juce::Colours::white);
-    g.setFont (juce::Font(getGiraffeyFont()));
-    g.setFont(50.0f);
-    g.drawFittedText ("DISTORTION", getLocalBounds(), juce::Justification::centred, 1);
+    //g.setColour(juce::Colours::black);
+    //g.fillRoundedRectangle(<#float x#>, <#float y#>, <#float width#>, <#float height#>, <#float cornerSize#>)
+    //g.fillCheckerBoard(rect, 2, 1, juce::Colours::maroon, juce::Colours::black);
+    //dsStruct.drawForRectangle(g, juce::Rectangle<int>::Rectangle<int>(50, 50, 400, 300));
+
+    //g.setColour (juce::Colours::white);
+    g.setColour(juce::Colours::white);
+    g.setFont (juce::Font(getAGFont()));
+    g.setFont(40.0f);
+//    g.drawFittedText ("OASIS CUSTOM", getLocalBounds(), juce::Justification::horizontallyCentred, 1);
     
-    g.setFont(20.0f);
-    g.drawText("VOLUME", 50, rect.getHeight() - 105, 100, 100, juce::Justification::centred, false);
-    g.drawText("DRIVE", rect.getWidth() - 50, rect.getHeight() - 105, 100, 100, juce::Justification::centred, false);
-    g.drawText("RANGE", 50, 20, 100, 100, juce::Justification::centred, false);
-    g.drawText("BLEND", rect.getWidth() - 50, 20, 100, 100, juce::Justification::centred, false);
+    g.drawText("oasis custom", 50, -25, 400, 300,juce::Justification::centred, false);
+    
+    g.setFont (juce::Font(getAGFont()));
+    g.setFont(15.0f);
+    g.drawText("range", 50, rect.getHeight() - 105, 100, 100, juce::Justification::centred, false);
+    g.drawText("volume", 150, rect.getHeight() - 105, 100, 100, juce::Justification::centred, false);
+    g.drawText("drive", 250, rect.getHeight() - 105, 100, 100, juce::Justification::centred, false);
+    g.drawText("blend", 350, rect.getHeight() - 105, 100, 100, juce::Justification::centred, false);
+    
+//    g.drawText("blend", 350, rect.getHeight() - 150, 100, 100, juce::Justification::centred, false);
+    
+//    g.setFont(5.0f);
+//    g.drawText("MADE IN BOSTON, MA 2021", rect.getWidth() / 2, rect.getHeight() - 5, 100, 100, juce::Justification::centred, false);
 
 
 }
 
 void FirstDistortionAudioProcessorEditor::resized()
 {
-    volumeSlider.setBounds(50,rect.getHeight() - 50,100,100);
-    driveSlider.setBounds(rect.getWidth() - 50, rect.getHeight() - 50, 100, 100);
-    rangeSlider.setBounds(50, 75, 100, 100);
-    blendSlider.setBounds(rect.getWidth() - 50, 75, 100, 100);
+    // input meter
+    inputMeterL.setBounds(150, 170, 200, 15);
+    inputMeterR.setBounds(150, 190, 200, 15);
+    
+    rangeSlider.setBounds(50, rect.getHeight() - 50, 100, 100);
+    volumeSlider.setBounds(150,rect.getHeight() - 50,100,100);
+    driveSlider.setBounds(250, rect.getHeight() - 50, 100, 100);
+    blendSlider.setBounds(350, rect.getHeight() - 50, 100, 100);
     // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..
 }
@@ -124,4 +149,12 @@ void FirstDistortionAudioProcessorEditor::sliderValueChanged(juce::Slider *slide
     if (slider == &rangeSlider) {
         *audioProcessor.apvts.getRawParameterValue("Range") = rangeSlider.getValue();
     }
+}
+
+void FirstDistortionAudioProcessorEditor::timerCallback()
+{
+    inputMeterL.setLevel(audioProcessor.getRmsValue(0));
+    inputMeterR.setLevel(audioProcessor.getRmsValue(1));
+    inputMeterL.repaint();
+    inputMeterR.repaint();
 }

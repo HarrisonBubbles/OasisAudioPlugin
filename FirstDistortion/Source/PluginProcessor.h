@@ -57,8 +57,11 @@ public:
     juce::AudioProcessorValueTreeState apvts {*this, nullptr, "Parameters", createParameterLayout()};
 
     //float mGain{ 0.5 };
+    
+    float getRmsValue(const int channel) const;
 
 private:
     //==============================================================================
+    float rmsLevelLeft, rmsLevelRight;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FirstDistortionAudioProcessor)
 };
