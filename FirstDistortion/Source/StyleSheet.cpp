@@ -16,10 +16,10 @@ void juce::CustomLNF::drawRotarySlider(Graphics& g,
     float rotaryStartAngle, float rotaryEndAngle, Slider& slider)
 {
 
-    File knobImageFile1 = File::getSpecialLocation
-    (File::SpecialLocationType::userDesktopDirectory).getChildFile("knob1.png");
-    static juce::Image
-        img1(ImageCache::getFromFile(knobImageFile1));
+    static juce::Image img1 = ImageFileFormat::loadFrom(BinaryData::knob1_png, (size_t)BinaryData::knob1_pngSize);
+
+    //static juce::Image
+      //  img1(ImageCache::getFromFile(knobImageFile1));
 
     if (img1.isValid()) {
         const double rotation = (slider.getValue()
